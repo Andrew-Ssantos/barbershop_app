@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
           child: CustomScrollView(
             slivers: [
               SliverFillRemaining(
-                hasScrollBody: false,
+                hasScrollBody: true,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -54,12 +54,14 @@ class LoginPage extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Esqueceu a senha?',
-                            style: TextStyle(color: ColorsConstants.brow, fontSize: 12),
+                            style: TextStyle(
+                                color: ColorsConstants.brow, fontSize: 12),
                           ),
                         ),
                         const SizedBox(height: 24),
                         ElevatedButton(
-                            style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(56)),
+                            style: ElevatedButton.styleFrom(
+                                minimumSize: const Size.fromHeight(56)),
                             onPressed: () {},
                             child: const Text('ACESSAR')),
                       ],

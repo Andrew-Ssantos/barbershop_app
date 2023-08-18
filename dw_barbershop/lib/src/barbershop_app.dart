@@ -1,4 +1,3 @@
-import 'package:asyncstate/observers/async_navigator_observer.dart';
 import 'package:asyncstate/widget/async_state_builder.dart';
 import 'package:dw_barbershop/src/features/auth/login/login_page.dart';
 import 'package:dw_barbershop/src/features/core/ui/barbershop_theme.dart';

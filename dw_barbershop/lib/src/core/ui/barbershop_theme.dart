@@ -1,4 +1,4 @@
-import 'package:dw_barbershop/src/features/core/ui/constants.dart';
+import 'package:dw_barbershop/src/core/ui/constants.dart';
 import 'package:flutter/material.dart';
 
 sealed class BarbershopTheme {

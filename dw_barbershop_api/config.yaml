@@ -1,5 +1,5 @@
 name: Json Rest Server
-port: 8080
+port: 7000
 host: 0.0.0.0
 database: database.json
 
@@ -9,6 +9,6 @@ auth:
   unauthorizedStatusCode: 403
   urlSkip:
     - /images/:
-       method: get
+        method: get
     - /users:
-       method: post
+        method: post

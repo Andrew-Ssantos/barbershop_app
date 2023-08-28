@@ -23,6 +23,13 @@
 			"request": "launch",
 			"type": "dart",
 			"flutterMode": "release"
+		},
+		{
+			"name": "Flutter (lib\\src\\repositories\\barbershop\\barbershop_repository.dart)",
+			"type": "dart",
+			"request": "launch",
+			"cwd": "dw_barbershop",
+			"program": "lib\\src\\repositories\\barbershop\\barbershop_repository.dart"
 		}
 	]
 }

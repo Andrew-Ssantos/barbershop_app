@@ -60,5 +60,21 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<Either<RepositoryException, Nil>> registerAdmin(
-      ({String email, String name, String password}) userData) {}
+    ({String email, String name, String password}) userData,
+  ) async {
+    try {
+      await restClient.unAuth.post('/users', data: {
+        'name': userData.name,
+        'email': userData.email,
+        'password': userData.password,
+        'profile': 'ADM',
+      });
+      return Success(Nil());
+    } on DioException catch (e, s) {
+      log('Erro ao registrar usuário admin', error: e, stackTrace: s);
+      return Failure(
+        RepositoryException(message: 'Erro ao registrar usuário admin'),
+      );
+    }
+  }
 }

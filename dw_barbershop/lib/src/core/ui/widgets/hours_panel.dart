@@ -34,13 +34,24 @@ class HoursPanel extends StatelessWidget {
   }
 }
 
-class TimeButton extends StatelessWidget {
+class TimeButton extends StatefulWidget {
   final String label;
+  final int value;
+  final ValueChanged<int> onPressed;
 
   const TimeButton({
     super.key,
     required this.label,
+    required this.value,
+    required this.onPressed,
   });
+
+  @override
+  State<TimeButton> createState() => _TimeButtonState();
+}
+
+class _TimeButtonState extends State<TimeButton> {
+  var selectd = false;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +65,7 @@ class TimeButton extends StatelessWidget {
       ),
       child: Center(
           child: Text(
-        label,
+        widget.label,
         style: const TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w500,

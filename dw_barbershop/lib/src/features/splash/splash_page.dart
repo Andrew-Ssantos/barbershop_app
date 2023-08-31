@@ -22,6 +22,8 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   double get _logoAnimationWidth => 100 * _scale;
   double get _logoAnimationHeight => 120 * _scale;
 
+  var endAnimation = false;
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -33,6 +35,12 @@ class _SplashPageState extends ConsumerState<SplashPage> {
     super.initState();
   }
 
+  void _redirect(String routeName) {
+    if (endAnimation == true)
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(routeName, (route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     ref.listen(splashVmProvider, (_, state) {
@@ -40,20 +48,16 @@ class _SplashPageState extends ConsumerState<SplashPage> {
         error: (error, stackTrace) {
           log('Erro ao validar o login', error: error, stackTrace: stackTrace);
           Messages.showError('Erro ao validar o login', context);
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil('/auth/login', (route) => false);
+          _redirect('/auth/login');
         },
         data: (data) {
           switch (data) {
             case SplashState.loggedADM:
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/home/adm', (route) => false);
+              _redirect('/home/adm');
             case SplashState.loggedEmployee:
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/home/employee', (route) => false);
+              _redirect('/home/employee');
             case _:
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/home/login', (route) => false);
+              _redirect('/auth/login');
           }
         },
       );
@@ -69,36 +73,41 @@ class _SplashPageState extends ConsumerState<SplashPage> {
             fit: BoxFit.cover,
           ),
         ),
-        child: AnimatedOpacity(
-          duration: const Duration(seconds: 2),
-          curve: Curves.easeIn,
-          opacity: _animationOpacityLogo,
-          onEnd: () {
-            Navigator.of(context).pushAndRemoveUntil(
-              PageRouteBuilder(
-                settings: const RouteSettings(name: '/auth/login'),
-                pageBuilder: (context, animation, secondaryAnimation) {
-                  return const LoginPage();
-                },
-                transitionsBuilder: (_, animation, __, child) {
-                  return FadeTransition(
-                    opacity: animation,
-                    child: child,
-                  );
-                },
-              ),
-              (route) => false,
-            );
-          },
-          child: Center(
-            child: AnimatedContainer(
-              duration: const Duration(seconds: 2),
-              width: _logoAnimationWidth,
-              height: _logoAnimationHeight,
-              curve: Curves.linearToEaseOut,
-              child: Image.asset(
-                ImageConstants.imageLogo,
-                fit: BoxFit.cover,
+        child: Center(
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 1250),
+            curve: Curves.easeIn,
+            opacity: _animationOpacityLogo,
+            onEnd: () {
+              setState(() {
+                endAnimation = true;
+              });
+              // Navigator.of(context).pushAndRemoveUntil(
+              //   PageRouteBuilder(
+              //     settings: const RouteSettings(name: '/auth/login'),
+              //     pageBuilder: (context, animation, secondaryAnimation) {
+              //       return const LoginPage();
+              //     },
+              //     transitionsBuilder: (_, animation, __, child) {
+              //       return FadeTransition(
+              //         opacity: animation,
+              //         child: child,
+              //       );
+              //     },
+              //   ),
+              //   (route) => false,
+              // );
+            },
+            child: Center(
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 1250),
+                width: _logoAnimationWidth,
+                height: _logoAnimationHeight,
+                curve: Curves.linearToEaseOut,
+                child: Image.asset(
+                  ImageConstants.imageLogo,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

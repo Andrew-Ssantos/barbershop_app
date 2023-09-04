@@ -15,6 +15,13 @@
 				7,
 				8
 			]
+		},
+		{
+			"id": 6,
+			"name": "teste",
+			"email": "teste@teste.com",
+			"password": "123456",
+			"profile": "ADM"
 		}
 	],
 	"adm_users": [],
@@ -39,6 +46,31 @@
 				20,
 				12,
 				13
+			]
+		},
+		{
+			"id": 3,
+			"user_id": "6",
+			"name": "Barbearia Teste",
+			"email": "barbertest@gmail.com",
+			"opening_days": [
+				"Seg",
+				"Ter",
+				"Qua",
+				"Qui",
+				"Sex"
+			],
+			"opening_hours": [
+				8,
+				9,
+				10,
+				12,
+				11,
+				14,
+				15,
+				16,
+				17,
+				18
 			]
 		}
 	],

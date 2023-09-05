@@ -3,11 +3,15 @@ import 'package:dw_barbershop/src/core/ui/constants.dart';
 import 'package:flutter/material.dart';
 
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({Key? key}) : super(key: key);
+  final bool showFilter;
+
+  const HomeHeader({super.key}) : showFilter = true;
+  const HomeHeader.withoutFilter({super.key}) : showFilter = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(24),
       width: MediaQuery.sizeOf(context).width,
       decoration: const BoxDecoration(
@@ -84,16 +88,22 @@ class HomeHeader extends StatelessWidget {
               fontSize: 40,
             ),
           ),
-          const SizedBox(height: 24),
-          TextFormField(
-            decoration: const InputDecoration(
-              label: Text('Buscar Colaborador'),
-              suffixIcon: Padding(
-                padding: EdgeInsets.only(right: 24),
-                child: Icon(
-                  BarbershopIcons.search,
-                  color: ColorsConstants.brow,
-                  size: 26,
+          Offstage(
+            offstage: !showFilter,
+            child: const SizedBox(height: 24),
+          ),
+          Offstage(
+            offstage: !showFilter,
+            child: TextFormField(
+              decoration: const InputDecoration(
+                label: Text('Buscar Colaborador'),
+                suffixIcon: Padding(
+                  padding: EdgeInsets.only(right: 24),
+                  child: Icon(
+                    BarbershopIcons.search,
+                    color: ColorsConstants.brow,
+                    size: 26,
+                  ),
                 ),
               ),
             ),

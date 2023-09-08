@@ -18,8 +18,7 @@ class UserRepositoryImpl implements UserRepository {
   });
 
   @override
-  Future<Either<AuthException, String>> login(
-      String email, String password) async {
+  Future<Either<AuthException, String>> login(String email, String password) async {
     try {
       final Response(:data) = await restClient.unAuth.post('/auth', data: {
         'email': email,
@@ -79,23 +78,74 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<RepositoryException, List<UserModel>>> getEmployees(
-      int barbershopId) async {
+  Future<Either<RepositoryException, List<UserModel>>> getEmployees(int barbershopId) async {
     try {
-      final Response(:List data) = await restClient.auth
-          .get('/users', queryParameters: {'barbershop_id': barbershopId});
+      final Response(:List data) =
+          await restClient.auth.get('/users', queryParameters: {'barbershop_id': barbershopId});
 
       final employees = data.map((e) => UserModelEmployee.fromMap(e)).toList();
       return Success(employees);
     } on DioException catch (e, s) {
       log('Erro ao buscar colaboradores', error: e, stackTrace: s);
-      return Failure(
-          RepositoryException(message: 'Erro ao buscar colaboradores'));
+      return Failure(RepositoryException(message: 'Erro ao buscar colaboradores'));
     } on ArgumentError catch (e, s) {
-      log('Erro ao converter colaboradores (Invalid Json)',
-          error: e, stackTrace: s);
-      return Failure(
-          RepositoryException(message: 'Erro ao buscar colaboradores'));
+      log('Erro ao converter colaboradores (Invalid Json)', error: e, stackTrace: s);
+      return Failure(RepositoryException(message: 'Erro ao buscar colaboradores'));
+    }
+  }
+
+  @override
+  Future<Either<RepositoryException, Nil>> registerAdmAsEmployee(
+      ({List<String> workdays, List<int> workhours}) userModel) async {
+    try {
+      final userModelResult = await me();
+
+      final int userId;
+
+      switch (userModelResult) {
+        case Success(value: UserModel(:var id)):
+          userId = id;
+        case Failure(:var exception):
+          return Failure(exception);
+      }
+
+      await restClient.auth.put('/users/$userId', data: {
+        'work_days': userModel.workdays,
+        'work_hours': userModel.workhours,
+      });
+
+      return Success(Nil());
+    } on DioException catch (e, s) {
+      log('Erro ao inserir administrador como colaborador', error: e, stackTrace: s);
+      return Failure(RepositoryException(message: 'Erro ao inserir administrador como colaborador'));
+    }
+  }
+
+  @override
+  Future<Either<RepositoryException, Nil>> registerEmployee(
+      ({
+        int barbershopId,
+        String email,
+        String name,
+        String password,
+        List<String> workdays,
+        List<int> workhours
+      }) userModel) async {
+    try {
+      await restClient.auth.post('/users/', data: {
+        'name': userModel.name,
+        'email': userModel.email,
+        'password': userModel.password,
+        'barbershop_id': userModel.barbershopId,
+        'profile': 'EMPLOYEE',
+        'work_days': userModel.workdays,
+        'work_hours': userModel.workhours,
+      });
+
+      return Success(Nil());
+    } on DioException catch (e, s) {
+      log('Erro ao inserir administrador como colaborador', error: e, stackTrace: s);
+      return Failure(RepositoryException(message: 'Erro ao inserir administrador como colaborador'));
     }
   }
 }

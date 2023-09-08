@@ -42,7 +42,16 @@
 			"name": "Lucas Melo",
 			"email": "lknagato@gmail.com",
 			"password": "melo9876",
-			"profile": "ADM"
+			"profile": "ADM",
+			"work_days": [
+				"Seg",
+				"Qua"
+			],
+			"work_hours": [
+				6,
+				7,
+				8
+			]
 		}
 	],
 	"adm_users": [],
@@ -74,6 +83,31 @@
 			"user_id": "9",
 			"name": "Black Barbershop",
 			"email": "blackbarbershop@gmail.com",
+			"opening_days": [
+				"Seg",
+				"Ter",
+				"Qua",
+				"Qui",
+				"Sex"
+			],
+			"opening_hours": [
+				8,
+				9,
+				10,
+				11,
+				14,
+				15,
+				16,
+				17,
+				18,
+				13
+			]
+		},
+		{
+			"id": 1,
+			"user_id": "8",
+			"name": "Sweet Barbershop",
+			"email": "sweetbarbershop@gmail.com",
 			"opening_days": [
 				"Seg",
 				"Ter",

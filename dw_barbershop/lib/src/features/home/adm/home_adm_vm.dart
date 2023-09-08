@@ -13,15 +13,22 @@ class HomeAdmVm extends _$HomeAdmVm {
   @override
   Future<HomeAdmState> build() async {
     final repository = ref.read(userRepositoryProvider);
-    final BarbershopModel(id: barbershopId) =
-        await ref.read(getMyBarbershopProvider.future);
+    final BarbershopModel(id: barbershopId) = await ref.read(getMyBarbershopProvider.future);
+    final me = await ref.watch(getMeProvider.future);
 
     final employeesResult = await repository.getEmployees(barbershopId);
 
     switch (employeesResult) {
-      case Success(value: final employees):
-        return HomeAdmState(
-            status: HomeAdmStateStatus.loaded, employees: employees);
+      case Success(value: final employeesData):
+        final employees = <UserModel>[];
+
+        if (me case UserModelADM(workDays: _?, workHours: _?)) {
+          employees.add(me);
+        }
+
+        employees.addAll(employeesData);
+
+        return HomeAdmState(status: HomeAdmStateStatus.loaded, employees: employees);
       case Failure():
         return HomeAdmState(status: HomeAdmStateStatus.error, employees: []);
     }

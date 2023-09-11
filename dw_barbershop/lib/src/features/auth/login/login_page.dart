@@ -49,105 +49,103 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: DecoratedBox(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(ImageConstants.backgroundChair),
-                opacity: 0.4,
-                fit: BoxFit.cover,
-              ),
+      body: Form(
+        key: formKey,
+        child: DecoratedBox(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(ImageConstants.backgroundChair),
+              opacity: 0.4,
+              fit: BoxFit.cover,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(30),
-              child: CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    hasScrollBody: true,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(ImageConstants.imageLogo),
-                            const SizedBox(height: 30),
-                            TextFormField(
-                              onTapOutside: (_) => context.unfocus(),
-                              validator: Validatorless.multiple([
-                                Validatorless.required('Email Obrigatório'),
-                                Validatorless.email('Email inválido'),
-                              ]),
-                              controller: emailEC,
-                              decoration: const InputDecoration(
-                                label: Text('E-mail'),
-                                labelStyle: TextStyle(color: Colors.black),
-                                hintText: 'E-mail',
-                                hintStyle: TextStyle(color: Colors.black),
-                                floatingLabelBehavior: FloatingLabelBehavior.never,
-                              ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(ImageConstants.imageLogo),
+                          const SizedBox(height: 30),
+                          TextFormField(
+                            onTapOutside: (_) => context.unfocus(),
+                            validator: Validatorless.multiple([
+                              Validatorless.required('Email Obrigatório'),
+                              Validatorless.email('Email inválido'),
+                            ]),
+                            controller: emailEC,
+                            decoration: const InputDecoration(
+                              label: Text('E-mail'),
+                              labelStyle: TextStyle(color: Colors.black),
+                              hintText: 'E-mail',
+                              hintStyle: TextStyle(color: Colors.black),
+                              floatingLabelBehavior: FloatingLabelBehavior.never,
                             ),
-                            const SizedBox(height: 30),
-                            TextFormField(
-                              onTapOutside: (_) => context.unfocus(),
-                              validator: Validatorless.multiple([
-                                Validatorless.required('Senha obrigatória'),
-                                Validatorless.min(6, 'Senha deve conter pelo menos 6 caracteres'),
-                              ]),
-                              obscureText: true,
-                              controller: passwordEC,
-                              decoration: const InputDecoration(
-                                label: Text('Senha'),
-                                labelStyle: TextStyle(color: Colors.black),
-                                hintText: 'Senha',
-                                hintStyle: TextStyle(color: Colors.black),
-                                floatingLabelBehavior: FloatingLabelBehavior.never,
-                              ),
+                          ),
+                          const SizedBox(height: 30),
+                          TextFormField(
+                            onTapOutside: (_) => context.unfocus(),
+                            validator: Validatorless.multiple([
+                              Validatorless.required('Senha obrigatória'),
+                              Validatorless.min(6, 'Senha deve conter pelo menos 6 caracteres'),
+                            ]),
+                            obscureText: true,
+                            controller: passwordEC,
+                            decoration: const InputDecoration(
+                              label: Text('Senha'),
+                              labelStyle: TextStyle(color: Colors.black),
+                              hintText: 'Senha',
+                              hintStyle: TextStyle(color: Colors.black),
+                              floatingLabelBehavior: FloatingLabelBehavior.never,
                             ),
-                            const SizedBox(height: 16),
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Esqueceu a senha?',
-                                style: TextStyle(color: ColorsConstants.brow, fontSize: 12),
-                              ),
+                          ),
+                          const SizedBox(height: 16),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Esqueceu a senha?',
+                              style: TextStyle(color: ColorsConstants.brow, fontSize: 12),
                             ),
-                            const SizedBox(height: 24),
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(56)),
-                                onPressed: () {
-                                  switch (formKey.currentState?.validate()) {
-                                    case (false || null):
-                                      Messages.showError('Campos inválidos', context);
-                                      break;
-                                    case true:
-                                      login(emailEC.text, passwordEC.text);
-                                  }
-                                },
-                                child: const Text('ACESSAR')),
-                          ],
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: InkWell(
-                            onTap: () => Navigator.of(context).pushNamed('/auth/register/user'),
-                            child: const Text(
-                              'Criar Conta',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
+                          ),
+                          const SizedBox(height: 24),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(56)),
+                              onPressed: () {
+                                switch (formKey.currentState?.validate()) {
+                                  case (false || null):
+                                    Messages.showError('Campos inválidos', context);
+                                    break;
+                                  case true:
+                                    login(emailEC.text, passwordEC.text);
+                                }
+                              },
+                              child: const Text('ACESSAR')),
+                        ],
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: InkWell(
+                          onTap: () => Navigator.of(context).pushNamed('/auth/register/user'),
+                          child: const Text(
+                            'Criar Conta',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

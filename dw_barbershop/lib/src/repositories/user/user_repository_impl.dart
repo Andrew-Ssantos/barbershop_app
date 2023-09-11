@@ -144,8 +144,8 @@ class UserRepositoryImpl implements UserRepository {
 
       return Success(Nil());
     } on DioException catch (e, s) {
-      log('Erro ao inserir administrador como colaborador', error: e, stackTrace: s);
-      return Failure(RepositoryException(message: 'Erro ao inserir administrador como colaborador'));
+      log('Erro ao inserir colaborador', error: e, stackTrace: s);
+      return Failure(RepositoryException(message: 'Erro ao inserir colaborador'));
     }
   }
 }

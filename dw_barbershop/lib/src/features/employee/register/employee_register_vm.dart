@@ -51,7 +51,6 @@ class EmployeeRegisterVm extends _$EmployeeRegisterVm {
 
     final Either<RepositoryException, Nil> resultRegister;
 
-    print(registerADM);
     if (registerADM) {
       final dto = (workdays: workdays, workhours: workhours);
 
@@ -74,7 +73,6 @@ class EmployeeRegisterVm extends _$EmployeeRegisterVm {
       case Success():
         state = state.copyWith(status: EmployeeRegisterStateStatus.sucess);
       case Failure():
-        print(resultRegister);
         state = state.copyWith(status: EmployeeRegisterStateStatus.error);
     }
     asyncLoaderHandler.close();

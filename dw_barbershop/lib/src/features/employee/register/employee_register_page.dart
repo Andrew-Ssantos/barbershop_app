@@ -71,7 +71,7 @@ class _EmployeeRegisterPageState extends ConsumerState<EmployeeRegisterPage> {
                 child: Center(
                   child: Column(
                     children: [
-                      const AvatarWidget(),
+                      AvatarWidget(),
                       const SizedBox(height: 32),
                       Row(
                         children: [
